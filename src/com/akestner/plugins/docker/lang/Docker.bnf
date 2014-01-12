@@ -1,17 +1,17 @@
 {
-    parserClass="com.akestner.dockerplugin.parser.DockerBashParser"
+    parserClass="com.akestner.plugins.docker.lang.parser.DockerParser"
     parserUtilClass="org.intellij.grammar.parser.GeneratedParserUtilBase"
 
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-    psiClassPrefix="DockerBash"
+    psiClassPrefix="Docker"
     psiImplClassSuffix="Impl"
-    psiPackage="com.akestner.dockerplugin.psi"
-    psiImplPackage="com.akestner.dockerplugin.psi.impl"
+    psiPackage="com.akestner.plugins.docker.lang.psi"
+    psiImplPackage="com.akestner.plugins.docker.lang.psi.impl"
 
-    elementTypeHolderClass="com.akestner.dockerplugin.psi.DockerBashTypes"
-    elementTypeClass="com.akestner.dockerplugin.psi.DockerBashElementType"
-    tokenTypeClass="com.akestner.dockerplugin.psi.DockerBashTokenType"
+    elementTypeHolderClass="com.akestner.plugins.docker.lang.psi.DockerTypes"
+    elementTypeClass="com.akestner.plugins.docker.lang.psi.DockerElementType"
+    tokenTypeClass="com.akestner.plugins.docker.lang.psi.DockerTokenType"
 
     tokens = [
         DOT='.'

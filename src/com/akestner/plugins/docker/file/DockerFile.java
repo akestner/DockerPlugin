@@ -1,10 +1,9 @@
-package com.akestner.dockerplugin.psi;
+package com.akestner.plugins.docker.file;
 
+import com.akestner.plugins.docker.lang.DockerLanguage;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import com.akestner.dockerplugin.DockerFileType;
-import com.akestner.dockerplugin.DockerLanguage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

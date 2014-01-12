@@ -1,8 +1,8 @@
-package com.akestner.dockerplugin;
+package com.akestner.plugins.docker.lang;
 
-import com.akestner.dockerplugin.psi.DockerFile;
-import com.akestner.dockerplugin.psi.DockerTypes;
-import com.akestner.dockerplugin.parser.DockerParser;
+import com.akestner.plugins.docker.file.DockerFile;
+import com.akestner.plugins.docker.lang.parser.DockerParser;
+import com.akestner.plugins.docker.lang.psi.DockerTypes;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
 import com.intellij.lang.ParserDefinition;

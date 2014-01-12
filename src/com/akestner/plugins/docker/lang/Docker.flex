@@ -1,8 +1,8 @@
-package com.akestner.dockerplugin;
+package com.akestner.plugins.docker.lang;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import com.akestner.dockerplugin.psi.DockerTypes;
+import com.akestner.plugins.docker.lang.psi.DockerTypes;
 import com.intellij.psi.TokenType;
 
 %%

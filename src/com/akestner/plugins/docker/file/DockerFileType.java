@@ -1,5 +1,7 @@
-package com.akestner.dockerplugin;
+package com.akestner.plugins.docker.file;
  
+import com.akestner.plugins.docker.util.DockerIcons;
+import com.akestner.plugins.docker.lang.DockerLanguage;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

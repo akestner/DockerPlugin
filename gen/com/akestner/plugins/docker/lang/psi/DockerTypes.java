@@ -1,10 +1,10 @@
 // This is a generated file. Not intended for manual editing.
-package com.akestner.dockerplugin.psi;
+package com.akestner.plugins.docker.lang.psi;
 
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
-import com.akestner.dockerplugin.psi.impl.*;
+import com.akestner.plugins.docker.lang.psi.impl.*;
 
 public interface DockerTypes {
 

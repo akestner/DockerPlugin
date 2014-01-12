@@ -1,4 +1,4 @@
-package com.akestner.dockerplugin;
+package com.akestner.plugins.docker.lang;
 
 import com.intellij.lang.Language;
 

@@ -1,6 +1,6 @@
-package com.akestner.dockerplugin.psi;
+package com.akestner.plugins.docker.lang.psi;
 
-import com.akestner.dockerplugin.DockerLanguage;
+import com.akestner.plugins.docker.lang.DockerLanguage;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;

@@ -1,8 +1,8 @@
 // This is a generated file. Not intended for manual editing.
-package com.akestner.dockerplugin.psi.impl;
+package com.akestner.plugins.docker.lang.psi.impl;
 
-import com.akestner.dockerplugin.psi.DockerProperty;
-import com.akestner.dockerplugin.psi.DockerVisitor;
+import com.akestner.plugins.docker.lang.psi.DockerProperty;
+import com.akestner.plugins.docker.lang.psi.DockerVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;

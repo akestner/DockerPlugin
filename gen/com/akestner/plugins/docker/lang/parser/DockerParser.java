@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.akestner.dockerplugin.parser;
+package com.akestner.plugins.docker.lang.parser;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiBuilder;
@@ -8,7 +8,7 @@ import com.intellij.lang.PsiParser;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.tree.IElementType;
 
-import static com.akestner.dockerplugin.psi.DockerTypes.*;
+import static com.akestner.plugins.docker.lang.psi.DockerTypes.*;
 import static org.intellij.grammar.parser.GeneratedParserUtilBase.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
