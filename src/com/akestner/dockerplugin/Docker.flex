@@ -12,7 +12,7 @@ import com.intellij.psi.TokenType;
 %unicode
 %function advance
 %type IElementType
-%eof{  return;
+%eof{ return;
 %eof}
 
 CRLF= \n|\r|\r\n

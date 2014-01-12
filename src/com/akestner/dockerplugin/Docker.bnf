@@ -1,21 +1,63 @@
 {
-  parserClass="com.akestner.dockerplugin.parser.DockerParser"
-  stubParserClass="com.akestner.dockerplugin.parser.GeneratedParserUtilBase"
+    parserClass="com.akestner.dockerplugin.parser.DockerBashParser"
+    parserUtilClass="org.intellij.grammar.parser.GeneratedParserUtilBase"
 
-  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-  psiClassPrefix="Docker"
-  psiImplClassSuffix="Impl"
-  psiPackage="com.akestner.dockerplugin.psi"
-  psiImplPackage="com.akestner.dockerplugin.psi.impl"
+    psiClassPrefix="DockerBash"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.akestner.dockerplugin.psi"
+    psiImplPackage="com.akestner.dockerplugin.psi.impl"
 
-  elementTypeHolderClass="com.akestner.dockerplugin.psi.DockerTypes"
-  elementTypeClass="com.akestner.dockerplugin.psi.DockerElementType"
-  tokenTypeClass="com.akestner.dockerplugin.psi.DockerTokenType"
+    elementTypeHolderClass="com.akestner.dockerplugin.psi.DockerBashTypes"
+    elementTypeClass="com.akestner.dockerplugin.psi.DockerBashElementType"
+    tokenTypeClass="com.akestner.dockerplugin.psi.DockerBashTokenType"
+
+    tokens = [
+        DOT='.'
+        POUND='#'
+        AT='@'
+        DOLLAR='$'
+        PLUS='+'
+        COLON=':'
+        SEMI_COLON=';'
+        EQ='='
+        COMMA=','
+        DASH='-'
+        UNDERSCORE='_'
+        TILDA='~'
+        BACKTICK='`'
+        SINGLE_QT="'"
+        DOUBLE_QT='"'
+        FWD_SLASH='/'
+        BACK_SLASH='\'
+        RIGHT_CARET='>'
+        LEFT_CARET='<'
+        LEFT_PAREN='('
+        RIGHT_PAREN=')'
+        LEFT_BRACKET='['
+        RIGHT_BRACKET=']'
+        LEFT_CURLY_BRACKET='{'
+        RIGHT_CURLY_BRACKET='}'
+
+        // reserved words
+        FROM="FROM"
+        MAINTAINER="MAINTAINER"
+        RUN="RUN"
+        CMD="CMD"
+        EXPOSE="EXPOSE"
+        ENV="ENV"
+        ADD="ADD"
+        ENTRYPOINT="ENTRYPOINT"
+        VOLUME="VOLUME"
+        USER="USER"
+        WORKDIR="WORKDIR"
+
+        COMMENT='regexp:#.*$'
+        NUMBER='regexp:\d+(\.\d*)?'
+        ID='regexp:\p{Alpha}\w*'
+        SHELL_CMD='regex:RUN\w*\p{Alpha}\w$'
+        DOUBLE_QUOTED_STRING='regexp:(?:"([^"]*)")'
+        SINGLE_QUOTED_STRING="regexp:(?:'([^']*)')"
+    ]
 }
-
-dockerFile ::= item_*
-
-private item_ ::= (property|COMMENT|CRLF)
-
-property ::= (KEY? SEPARATOR VALUE?) | KEY

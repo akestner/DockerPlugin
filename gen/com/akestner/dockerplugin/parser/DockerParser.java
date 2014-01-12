@@ -8,23 +8,17 @@ import com.intellij.lang.PsiParser;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.tree.IElementType;
 
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.TRUE_CONDITION;
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.adapt_builder_;
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.consumeToken;
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.empty_element_parsed_guard_;
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.nextTokenIs;
-import static com.akestner.dockerplugin.parser.GeneratedParserUtilBase.recursion_guard_;
 import static com.akestner.dockerplugin.psi.DockerTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static org.intellij.grammar.parser.GeneratedParserUtilBase.*;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class DockerParser implements PsiParser {
 
   public static final Logger LOG_ = Logger.getInstance("com.akestner.dockerplugin.parser.DockerParser");
 
   public ASTNode parse(IElementType root_, PsiBuilder builder_) {
     boolean result_;
-    builder_ = adapt_builder_(root_, builder_, this);
+    builder_ = adapt_builder_(root_, builder_, this, null);
     Marker marker_ = enter_section_(builder_, 0, _COLLAPSE_, null);
     if (root_ == PROPERTY) {
       result_ = property(builder_, 0);
@@ -47,7 +41,7 @@ public class DockerParser implements PsiParser {
     int pos_ = current_position_(builder_);
     while (true) {
       if (!item_(builder_, level_ + 1)) break;
-      if (empty_element_parsed_guard_(builder_, pos_, "dockerFile")) break;
+      if (!empty_element_parsed_guard_(builder_, "dockerFile", pos_)) break;
       pos_ = current_position_(builder_);
     }
     return true;

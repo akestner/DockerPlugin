@@ -3,7 +3,6 @@ package com.akestner.dockerplugin.psi;
 
 import com.intellij.psi.PsiElement;
 
-public interface DockerProperty extends PsiElement
-{
+public interface DockerProperty extends PsiElement {
 
 }
