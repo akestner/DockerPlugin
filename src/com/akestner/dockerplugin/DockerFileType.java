@@ -33,7 +33,7 @@ public class DockerFileType extends LanguageFileType
     @Override
     public String getDefaultExtension()
     {
-        return "dockerfile";
+        return "docker";
     }
  
     @Nullable

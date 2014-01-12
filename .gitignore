@@ -2,3 +2,5 @@
 .idea/
 *.iml
 /out/
+/*.zip
+/*.jar

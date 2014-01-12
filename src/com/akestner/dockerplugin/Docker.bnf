@@ -1,0 +1,21 @@
+{
+  parserClass="com.akestner.dockerplugin.parser.DockerParser"
+  stubParserClass="com.akestner.dockerplugin.parser.GeneratedParserUtilBase"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Docker"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.akestner.dockerplugin.psi"
+  psiImplPackage="com.akestner.dockerplugin.psi.impl"
+
+  elementTypeHolderClass="com.akestner.dockerplugin.psi.DockerTypes"
+  elementTypeClass="com.akestner.dockerplugin.psi.DockerElementType"
+  tokenTypeClass="com.akestner.dockerplugin.psi.DockerTokenType"
+}
+
+dockerFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY
