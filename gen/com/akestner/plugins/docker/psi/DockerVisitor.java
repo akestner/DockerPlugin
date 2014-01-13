@@ -15,7 +15,11 @@ public class DockerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitComment(@NotNull DockerComment o) {
+  public void visitContent(@NotNull DockerContent o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDirective(@NotNull DockerDirective o) {
     visitPsiElement(o);
   }
 

@@ -23,69 +23,15 @@ public class DockerInstructionImpl extends ASTWrapperPsiElement implements Docke
   }
 
   @Override
-  @Nullable
-  public DockerAddDirective getAddDirective() {
-    return findChildByClass(DockerAddDirective.class);
+  @NotNull
+  public List<DockerContent> getContentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, DockerContent.class);
   }
 
   @Override
-  @Nullable
-  public DockerCmdDirective getCmdDirective() {
-    return findChildByClass(DockerCmdDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerEntrypointDirective getEntrypointDirective() {
-    return findChildByClass(DockerEntrypointDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerEnvDirective getEnvDirective() {
-    return findChildByClass(DockerEnvDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerExposeDirective getExposeDirective() {
-    return findChildByClass(DockerExposeDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerFromDirective getFromDirective() {
-    return findChildByClass(DockerFromDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerMaintainerDirective getMaintainerDirective() {
-    return findChildByClass(DockerMaintainerDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerRunDirective getRunDirective() {
-    return findChildByClass(DockerRunDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerUserDirective getUserDirective() {
-    return findChildByClass(DockerUserDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerVolumeDirective getVolumeDirective() {
-    return findChildByClass(DockerVolumeDirective.class);
-  }
-
-  @Override
-  @Nullable
-  public DockerWorkdirDirective getWorkdirDirective() {
-    return findChildByClass(DockerWorkdirDirective.class);
+  @NotNull
+  public DockerDirective getDirective() {
+    return findNotNullChildByClass(DockerDirective.class);
   }
 
 }

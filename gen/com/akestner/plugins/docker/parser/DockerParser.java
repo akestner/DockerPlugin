@@ -26,8 +26,11 @@ public class DockerParser implements PsiParser {
     else if (root_ == CMD_DIRECTIVE) {
       result_ = CmdDirective(builder_, 0);
     }
-    else if (root_ == COMMENT) {
-      result_ = Comment(builder_, 0);
+    else if (root_ == CONTENT) {
+      result_ = Content(builder_, 0);
+    }
+    else if (root_ == DIRECTIVE) {
+      result_ = Directive(builder_, 0);
     }
     else if (root_ == ENTRYPOINT_DIRECTIVE) {
       result_ = EntrypointDirective(builder_, 0);
@@ -71,7 +74,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Add}
+  // "ADD"
   public static boolean AddDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "AddDirective")) return false;
     if (!nextTokenIs(builder_, ADD)) return false;
@@ -83,7 +86,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Cmd}
+  // "CMD"
   public static boolean CmdDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "CmdDirective")) return false;
     if (!nextTokenIs(builder_, CMD)) return false;
@@ -95,19 +98,233 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {CommentLine}
-  public static boolean Comment(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Comment")) return false;
-    if (!nextTokenIs(builder_, COMMENTLINE)) return false;
+  // {Letter}+|{Number}+|{Symbol}+|{Space}+|{QuotedString}+
+  public static boolean Content(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, "<content>");
+    result_ = Content_0(builder_, level_ + 1);
+    if (!result_) result_ = Content_1(builder_, level_ + 1);
+    if (!result_) result_ = Content_2(builder_, level_ + 1);
+    if (!result_) result_ = Content_3(builder_, level_ + 1);
+    if (!result_) result_ = Content_4(builder_, level_ + 1);
+    exit_section_(builder_, level_, marker_, CONTENT, result_, false, null);
+    return result_;
+  }
+
+  // {Letter}+
+  private static boolean Content_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content_0")) return false;
     boolean result_ = false;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, COMMENTLINE);
-    exit_section_(builder_, marker_, COMMENT, result_);
+    result_ = consumeToken(builder_, LETTER);
+    int pos_ = current_position_(builder_);
+    while (result_) {
+      if (!consumeToken(builder_, LETTER)) break;
+      if (!empty_element_parsed_guard_(builder_, "Content_0", pos_)) break;
+      pos_ = current_position_(builder_);
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {Number}+
+  private static boolean Content_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content_1")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, NUMBER);
+    int pos_ = current_position_(builder_);
+    while (result_) {
+      if (!consumeToken(builder_, NUMBER)) break;
+      if (!empty_element_parsed_guard_(builder_, "Content_1", pos_)) break;
+      pos_ = current_position_(builder_);
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {Symbol}+
+  private static boolean Content_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content_2")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, SYMBOL);
+    int pos_ = current_position_(builder_);
+    while (result_) {
+      if (!consumeToken(builder_, SYMBOL)) break;
+      if (!empty_element_parsed_guard_(builder_, "Content_2", pos_)) break;
+      pos_ = current_position_(builder_);
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {Space}+
+  private static boolean Content_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content_3")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, SPACE);
+    int pos_ = current_position_(builder_);
+    while (result_) {
+      if (!consumeToken(builder_, SPACE)) break;
+      if (!empty_element_parsed_guard_(builder_, "Content_3", pos_)) break;
+      pos_ = current_position_(builder_);
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {QuotedString}+
+  private static boolean Content_4(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Content_4")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, QUOTEDSTRING);
+    int pos_ = current_position_(builder_);
+    while (result_) {
+      if (!consumeToken(builder_, QUOTEDSTRING)) break;
+      if (!empty_element_parsed_guard_(builder_, "Content_4", pos_)) break;
+      pos_ = current_position_(builder_);
+    }
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
   /* ********************************************************** */
-  // {Entrypoint}
+  // {FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}
+  public static boolean Directive(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, "<directive>");
+    result_ = Directive_0(builder_, level_ + 1);
+    if (!result_) result_ = Directive_1(builder_, level_ + 1);
+    if (!result_) result_ = Directive_2(builder_, level_ + 1);
+    if (!result_) result_ = Directive_3(builder_, level_ + 1);
+    if (!result_) result_ = Directive_4(builder_, level_ + 1);
+    if (!result_) result_ = Directive_5(builder_, level_ + 1);
+    if (!result_) result_ = Directive_6(builder_, level_ + 1);
+    if (!result_) result_ = Directive_7(builder_, level_ + 1);
+    if (!result_) result_ = Directive_8(builder_, level_ + 1);
+    if (!result_) result_ = Directive_9(builder_, level_ + 1);
+    if (!result_) result_ = Directive_10(builder_, level_ + 1);
+    exit_section_(builder_, level_, marker_, DIRECTIVE, result_, false, null);
+    return result_;
+  }
+
+  // {FromDirective}
+  private static boolean Directive_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_0")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = FromDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {MaintainerDirective}
+  private static boolean Directive_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_1")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = MaintainerDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {RunDirective}
+  private static boolean Directive_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_2")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = RunDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {CmdDirective}
+  private static boolean Directive_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_3")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = CmdDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {ExposeDirective}
+  private static boolean Directive_4(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_4")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = ExposeDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {EnvDirective}
+  private static boolean Directive_5(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_5")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = EnvDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {AddDirective}
+  private static boolean Directive_6(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_6")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = AddDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {EntrypointDirective}
+  private static boolean Directive_7(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_7")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = EntrypointDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {UserDirective}
+  private static boolean Directive_8(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_8")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = UserDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {VolumeDirective}
+  private static boolean Directive_9(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_9")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = VolumeDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // {WorkdirDirective}
+  private static boolean Directive_10(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Directive_10")) return false;
+    boolean result_ = false;
+    Marker marker_ = enter_section_(builder_);
+    result_ = WorkdirDirective(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // "ENTRYPOINT"
   public static boolean EntrypointDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "EntrypointDirective")) return false;
     if (!nextTokenIs(builder_, ENTRYPOINT)) return false;
@@ -119,7 +336,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Env}
+  // "ENV"
   public static boolean EnvDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "EnvDirective")) return false;
     if (!nextTokenIs(builder_, ENV)) return false;
@@ -131,7 +348,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Expose}
+  // "EXPOSE"
   public static boolean ExposeDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "ExposeDirective")) return false;
     if (!nextTokenIs(builder_, EXPOSE)) return false;
@@ -143,7 +360,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {From}
+  // "FROM"
   public static boolean FromDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "FromDirective")) return false;
     if (!nextTokenIs(builder_, FROM)) return false;
@@ -155,188 +372,60 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // [{FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}] ({InputCharacters}|{Number}|{Whitespace})* [{LineTermination}]
+  // ({Directive}) {Space} ({Content})* [{LineSep}]
   public static boolean Instruction(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "Instruction")) return false;
     boolean result_ = false;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, "<instruction>");
     result_ = Instruction_0(builder_, level_ + 1);
-    result_ = result_ && Instruction_1(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, SPACE);
     result_ = result_ && Instruction_2(builder_, level_ + 1);
+    result_ = result_ && Instruction_3(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, INSTRUCTION, result_, false, null);
     return result_;
   }
 
-  // [{FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}]
+  // {Directive}
   private static boolean Instruction_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "Instruction_0")) return false;
-    Instruction_0_0(builder_, level_ + 1);
-    return true;
-  }
-
-  // {FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}
-  private static boolean Instruction_0_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0")) return false;
     boolean result_ = false;
     Marker marker_ = enter_section_(builder_);
-    result_ = Instruction_0_0_0(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_1(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_2(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_3(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_4(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_5(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_6(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_7(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_8(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_9(builder_, level_ + 1);
-    if (!result_) result_ = Instruction_0_0_10(builder_, level_ + 1);
+    result_ = Directive(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
-  // {FromDirective}
-  private static boolean Instruction_0_0_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_0")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = FromDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {MaintainerDirective}
-  private static boolean Instruction_0_0_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_1")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = MaintainerDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {RunDirective}
-  private static boolean Instruction_0_0_2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_2")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = RunDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {CmdDirective}
-  private static boolean Instruction_0_0_3(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_3")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = CmdDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {ExposeDirective}
-  private static boolean Instruction_0_0_4(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_4")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = ExposeDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {EnvDirective}
-  private static boolean Instruction_0_0_5(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_5")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = EnvDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {AddDirective}
-  private static boolean Instruction_0_0_6(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_6")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = AddDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {EntrypointDirective}
-  private static boolean Instruction_0_0_7(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_7")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = EntrypointDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {UserDirective}
-  private static boolean Instruction_0_0_8(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_8")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = UserDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {VolumeDirective}
-  private static boolean Instruction_0_0_9(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_9")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = VolumeDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {WorkdirDirective}
-  private static boolean Instruction_0_0_10(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_0_0_10")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = WorkdirDirective(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // ({InputCharacters}|{Number}|{Whitespace})*
-  private static boolean Instruction_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_1")) return false;
+  // ({Content})*
+  private static boolean Instruction_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Instruction_2")) return false;
     int pos_ = current_position_(builder_);
     while (true) {
-      if (!Instruction_1_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "Instruction_1", pos_)) break;
+      if (!Instruction_2_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "Instruction_2", pos_)) break;
       pos_ = current_position_(builder_);
     }
     return true;
   }
 
-  // {InputCharacters}|{Number}|{Whitespace}
-  private static boolean Instruction_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_1_0")) return false;
+  // {Content}
+  private static boolean Instruction_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Instruction_2_0")) return false;
     boolean result_ = false;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, INPUTCHARACTERS);
-    if (!result_) result_ = consumeToken(builder_, NUMBER);
-    if (!result_) result_ = consumeToken(builder_, WHITESPACE);
+    result_ = Content(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
-  // [{LineTermination}]
-  private static boolean Instruction_2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "Instruction_2")) return false;
-    consumeToken(builder_, LINETERMINATION);
+  // [{LineSep}]
+  private static boolean Instruction_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "Instruction_3")) return false;
+    consumeToken(builder_, LINESEP);
     return true;
   }
 
   /* ********************************************************** */
-  // {Maintainer}
+  // "MAINTAINER"
   public static boolean MaintainerDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "MaintainerDirective")) return false;
     if (!nextTokenIs(builder_, MAINTAINER)) return false;
@@ -348,7 +437,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Run}
+  // "RUN"
   public static boolean RunDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "RunDirective")) return false;
     if (!nextTokenIs(builder_, RUN)) return false;
@@ -360,7 +449,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {User}
+  // "USER"
   public static boolean UserDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "UserDirective")) return false;
     if (!nextTokenIs(builder_, USER)) return false;
@@ -372,7 +461,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Volume}
+  // "VOLUME"
   public static boolean VolumeDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "VolumeDirective")) return false;
     if (!nextTokenIs(builder_, VOLUME)) return false;
@@ -384,7 +473,7 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {Workdir}
+  // "WORKDIR"
   public static boolean WorkdirDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "WorkdirDirective")) return false;
     if (!nextTokenIs(builder_, WORKDIR)) return false;
@@ -409,25 +498,15 @@ public class DockerParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // {EOF} | {LineTermination} | {Comment} | {Instruction}
+  // {Space}|{LineSep}|{Comment}|{Instruction}
   static boolean item_(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "item_")) return false;
     boolean result_ = false;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, EOF);
-    if (!result_) result_ = consumeToken(builder_, LINETERMINATION);
-    if (!result_) result_ = item__2(builder_, level_ + 1);
+    result_ = consumeToken(builder_, SPACE);
+    if (!result_) result_ = consumeToken(builder_, LINESEP);
+    if (!result_) result_ = consumeToken(builder_, COMMENT);
     if (!result_) result_ = item__3(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // {Comment}
-  private static boolean item__2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "item__2")) return false;
-    boolean result_ = false;
-    Marker marker_ = enter_section_(builder_);
-    result_ = Comment(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }

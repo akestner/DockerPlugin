@@ -5,6 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface DockerComment extends PsiElement {
+public interface DockerContent extends PsiElement {
 
 }

@@ -25,7 +25,7 @@ public class DockerParserDefinition implements ParserDefinition
 
     public static final TokenSet INSTRUCTION = TokenSet.create(DockerTypes.INSTRUCTION);
     public static final TokenSet COMMENT = TokenSet.create(DockerTypes.COMMENT);
-    public static final TokenSet LINE_TERMINATION = TokenSet.create(DockerTypes.LINETERMINATION);
+    public static final TokenSet LINESEP = TokenSet.create(DockerTypes.LINESEP);
 
     public static final TokenSet FROM = TokenSet.create(DockerTypes.FROM);
     public static final TokenSet MAINTAINER = TokenSet.create(DockerTypes.MAINTAINER);

@@ -3,7 +3,6 @@
 
 package com.akestner.plugins.docker.lexer;
 
-import java_cup.runtime.*;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
@@ -81,7 +80,9 @@ Instruction={Directive} ([:jletter:]|[:jletterdigit:]|{WhiteSpace})* {LineTermin
 <YYINITIAL> {Workdir}               { yybegin(YYINITIAL); return DockerTypes.WORKDIR; }
 <YYINITIAL> {Directive}             { yybegin(YYINITIAL); return DockerTypes.INSTRUCTION; }
 <YYINITIAL> {Comment}               { yybegin(YYINITIAL); return DockerTypes.COMMENT; }
-<YYINITIAL> {LineTerminator}        { yybegin(YYINITIAL); return DockerTypes.LINETERMINATION; }
-<WAITING_VALUE> {LineTerminator}    { yybegin(YYINITIAL); return DockerTypes.LINETERMINATION; }
+<YYINITIAL> {LineTerminator}        { yybegin(YYINITIAL); return DockerTypes.LINESEP; }
+
+<WAITING_VALUE> {LineTerminator}    { yybegin(YYINITIAL); return DockerTypes.LINESEP; }
 <WAITING_VALUE> {WhiteSpace}+       { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
+
 .|\n                                { throw new Error("Illegal character <"+yytext()+">"); }

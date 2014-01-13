@@ -11,14 +11,14 @@ import static com.akestner.plugins.docker.parser.DockerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.akestner.plugins.docker.psi.*;
 
-public class DockerCommentImpl extends ASTWrapperPsiElement implements DockerComment {
+public class DockerContentImpl extends ASTWrapperPsiElement implements DockerContent {
 
-  public DockerCommentImpl(ASTNode node) {
+  public DockerContentImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof DockerVisitor) ((DockerVisitor)visitor).visitComment(this);
+    if (visitor instanceof DockerVisitor) ((DockerVisitor)visitor).visitContent(this);
     else super.accept(visitor);
   }
 
