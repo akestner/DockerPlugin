@@ -1,85 +1,61 @@
 // This is a generated file. Not intended for manual editing.
 package com.akestner.plugins.docker.psi;
 
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.psi.PsiElement;
 
 public class DockerVisitor extends PsiElementVisitor {
 
-  public void visitAdd(@NotNull DockerAdd o) {
+  public void visitAddDirective(@NotNull DockerAddDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitBlankLine(@NotNull DockerBlankLine o) {
+  public void visitCmdDirective(@NotNull DockerCmdDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitCmd(@NotNull DockerCmd o) {
+  public void visitComment(@NotNull DockerComment o) {
     visitPsiElement(o);
   }
 
-  public void visitCommentLine(@NotNull DockerCommentLine o) {
+  public void visitEntrypointDirective(@NotNull DockerEntrypointDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitDirective(@NotNull DockerDirective o) {
+  public void visitEnvDirective(@NotNull DockerEnvDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitEntrypoint(@NotNull DockerEntrypoint o) {
+  public void visitExposeDirective(@NotNull DockerExposeDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitEnv(@NotNull DockerEnv o) {
+  public void visitFromDirective(@NotNull DockerFromDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitExpose(@NotNull DockerExpose o) {
+  public void visitInstruction(@NotNull DockerInstruction o) {
     visitPsiElement(o);
   }
 
-  public void visitFrom(@NotNull DockerFrom o) {
+  public void visitMaintainerDirective(@NotNull DockerMaintainerDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitInstructionLine(@NotNull DockerInstructionLine o) {
+  public void visitRunDirective(@NotNull DockerRunDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitLineTermination(@NotNull DockerLineTermination o) {
+  public void visitUserDirective(@NotNull DockerUserDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitMaintainer(@NotNull DockerMaintainer o) {
+  public void visitVolumeDirective(@NotNull DockerVolumeDirective o) {
     visitPsiElement(o);
   }
 
-  public void visitNothing(@NotNull DockerNothing o) {
-    visitPsiElement(o);
-  }
-
-  public void visitOptionalWhitespace(@NotNull DockerOptionalWhitespace o) {
-    visitPsiElement(o);
-  }
-
-  public void visitRun(@NotNull DockerRun o) {
-    visitPsiElement(o);
-  }
-
-  public void visitUser(@NotNull DockerUser o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVolume(@NotNull DockerVolume o) {
-    visitPsiElement(o);
-  }
-
-  public void visitWhitespace(@NotNull DockerWhitespace o) {
-    visitPsiElement(o);
-  }
-
-  public void visitWorkdir(@NotNull DockerWorkdir o) {
+  public void visitWorkdirDirective(@NotNull DockerWorkdirDirective o) {
     visitPsiElement(o);
   }
 

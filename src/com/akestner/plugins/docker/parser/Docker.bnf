@@ -1,0 +1,59 @@
+{
+    parserClass="com.akestner.plugins.docker.parser.DockerParser"
+    parserUtilClass="org.intellij.grammar.parser.GeneratedParserUtilBase"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Docker"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.akestner.plugins.docker.psi"
+    psiImplPackage="com.akestner.plugins.docker.psi.impl"
+
+    elementTypeClass="com.akestner.plugins.docker.parser.DockerElementType"
+    tokenTypeClass="com.akestner.plugins.docker.parser.DockerTokenTypes"
+
+    elementTypeHolderClass="com.akestner.plugins.docker.parser.DockerTypes"
+
+    tokens=[
+        CommentLine='regexp:#.*[\n\r]'
+        Number='regexp:\d+(\.\d+)*?'
+        InputCharacters='regexp:[^\w\r\n]*'
+        QuotedString="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+        Whitespace="regexp:\w+"
+        LineTermination="regexp:\n|\r"
+        OptionalWhitespace="regexp:"
+        EOF="regexp:$"
+
+        From="regexp:{FROM|from}"
+        Maintainer="regexp:({MAINTAINER|maintainer})"
+        Run="regexp:({RUN|run})"
+        Cmd="regexp:({CMD|cmd})"
+        Expose="regexp:({EXPOSE|expose})"
+        Env="regexp:({ENV|env})"
+        Add="regexp:({ADD|add})\w+"
+        Entrypoint="regexp:({ENTRYPOINT|entrypoint})\w+"
+        User="regexp:({USER|user})\w+"
+        Volume="regexp:({VOLUME|volume})\w+"
+        Workdir="regexp:({WORKDIR|workdir})\w+"
+    ]
+}
+
+dockerFile ::= item_*
+
+Comment ::= {CommentLine}
+
+FromDirective ::= {From}
+MaintainerDirective ::= {Maintainer}
+RunDirective ::= {Run}
+CmdDirective ::= {Cmd}
+ExposeDirective ::= {Expose}
+EnvDirective ::= {Env}
+AddDirective ::= {Add}
+EntrypointDirective ::= {Entrypoint}
+UserDirective ::= {User}
+VolumeDirective ::= {Volume}
+WorkdirDirective ::= {Workdir}
+
+Instruction ::= [{FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}] ({InputCharacters}|{Number}|{Whitespace})* [{LineTermination}]
+
+private item_ ::= {EOF} | {LineTermination} | {Comment} | {Instruction}

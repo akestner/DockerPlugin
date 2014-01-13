@@ -1,18 +1,21 @@
 <idea-plugin version="2">
-    <id>com.akestner.plugins</id>
+    <id>com.akestner.plugins.docker</id>
     <name>Docker</name>
-    <vendor email="alex.kestner@gmail.com" url="http://www.github.com/idea-docker">N/A</vendor>
+    <vendor email="alex.kestner@gmail.com" url="http://www.github.com/DockerPlugin">Alex Kestner</vendor>
     <description>Dockerfile Syntax Support</description>
     <category>Custom Languages</category>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <change-notes>
     </change-notes>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="107.105"/>
+    <idea-version since-build="110.000" />
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
+
+    <!-- Resource bundle from which the text of plugin descriptions, action names and etc. will be loaded -->
+    <resource-bundle>messages.DockerBundler</resource-bundle>
 
     <application-components>
         <!-- Add your application components here -->
@@ -28,7 +31,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="com.akestner.plugins.docker.file.DockerFileTypeFactory"/>
-        <lang.parserDefinition language="Docker" implementationClass="com.akestner.plugins.docker.parsing.DockerParserDefinition"/>
+        <lang.parserDefinition language="Docker" implementationClass="com.akestner.plugins.docker.parser.DockerParserDefinition"/>
     </extensions>
 
 </idea-plugin>
