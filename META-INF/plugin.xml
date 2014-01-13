@@ -1,42 +1,37 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>com.akestner.plugins.docker</id>
+    <name>Docker</name>
+    <vendor email="alex.kestner@gmail.com" url="http://www.github.com/DockerPlugin">Alex Kestner</vendor>
+    <description>Dockerfile Syntax Support</description>
+    <category>Custom Languages</category>
+    <version>0.0.3</version>
+    <change-notes>
+    </change-notes>
 
-  <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <small>most HTML tags may be used</small>
-      ]]></description>
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="110.000" />
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <small>most HTML tags may be used</small>
-      ]]>
-  </change-notes>
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
 
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="107.105"/>
+    <!-- Resource bundle from which the text of plugin descriptions, action names and etc. will be loaded -->
+    <resource-bundle>messages.DockerBundler</resource-bundle>
 
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
 
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
 
-  <project-components>
-    <!-- Add your project components here -->
-  </project-components>
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
 
-  <actions>
-    <!-- Add your actions here -->
-  </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="com.akestner.plugins.docker.file.DockerFileTypeFactory"/>
+        <lang.parserDefinition language="Docker" implementationClass="com.akestner.plugins.docker.parser.DockerParserDefinition"/>
+    </extensions>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-  </extensions>
 </idea-plugin>

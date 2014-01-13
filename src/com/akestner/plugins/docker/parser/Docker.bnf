@@ -1,0 +1,62 @@
+{
+    parserClass="com.akestner.plugins.docker.parser.DockerParser"
+    parserUtilClass="org.intellij.grammar.parser.GeneratedParserUtilBase"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Docker"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.akestner.plugins.docker.psi"
+    psiImplPackage="com.akestner.plugins.docker.psi.impl"
+
+    elementTypeClass="com.akestner.plugins.docker.parser.DockerElementType"
+    tokenTypeClass="com.akestner.plugins.docker.parser.DockerTokenTypes"
+
+    elementTypeHolderClass="com.akestner.plugins.docker.parser.DockerTypes"
+
+    tokens=[
+        Comment='regexp:#(.*)[\n\r]'
+        Number='regexp:\p{Digit}?'
+        Letter='regexp:\p{Alpha}'
+        Symbol="regexp:\p{Punct}"
+        QuotedString="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+        Space="regexp:[\s\t\f]+"
+        Blank="regexp:\p{Blank}+"
+        LineSep="regexp:\n|\r|\r\n|\u0085|\u2028|\u2029"
+        EOF="regexp:\Z"
+        From="FROM"
+        Maintainer="MAINTAINER"
+        Run="RUN"
+        Cmd="CMD"
+        Expose="EXPOSE"
+        Env="ENV"
+        Add="ADD"
+        Entrypoint="ENTRYPOINT"
+        User="USER"
+        Volume="VOLUME"
+        Workdir="WORKDIR"
+    ]
+}
+
+dockerFile ::= item_*
+
+FromDirective ::= "FROM"
+MaintainerDirective ::= "MAINTAINER"
+RunDirective ::= "RUN"
+CmdDirective ::= "CMD"
+ExposeDirective ::= "EXPOSE"
+EnvDirective ::= "ENV"
+AddDirective ::= "ADD"
+EntrypointDirective ::= "ENTRYPOINT"
+UserDirective ::= "USER"
+VolumeDirective ::= "VOLUME"
+WorkdirDirective ::= "WORKDIR"
+
+Directive ::= {FromDirective}|{MaintainerDirective}|{RunDirective}|{CmdDirective}|{ExposeDirective}|{EnvDirective}|{AddDirective}|{EntrypointDirective}|{UserDirective}|{VolumeDirective}|{WorkdirDirective}
+
+Content ::= {Letter}+|{Number}+|{Symbol}+|{Space}+|{QuotedString}+
+
+Instruction ::= ({Directive}) {Space} ({Content})* [{LineSep}]
+
+
+private item_ ::= {Space}|{LineSep}|{Comment}|{Instruction}
